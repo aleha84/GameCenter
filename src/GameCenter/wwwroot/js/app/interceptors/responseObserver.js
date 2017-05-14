@@ -9,7 +9,7 @@
                 alert('Backend Exception');
                 break;
             }
-            return $q.reject(errorResponse);
+            return errorResponse;
         }
     };
 }
