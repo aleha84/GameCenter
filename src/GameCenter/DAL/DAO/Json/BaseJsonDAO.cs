@@ -14,7 +14,7 @@ namespace GameCenter.DAL.DAO.Json
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private string _path;
-        private IEnumerable<TBaseEntity> _data;
+        protected IEnumerable<TBaseEntity> _data;
 
         public BaseJsonDAO(IHostingEnvironment hostingEnvironment)
         {

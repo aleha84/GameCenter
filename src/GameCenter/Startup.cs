@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using GameCenter.BLL;
+using GameCenter.BLL.Providers;
 using GameCenter.DAL.DAO;
 using GameCenter.DAL.DAO.Json;
 using GameCenter.Infrastructure;
@@ -21,8 +24,21 @@ namespace GameCenter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(typeof(IBaseDAO<>), typeof(BaseJsonDAO<>));
+            services.AddSingleton<IUserDAO, UserJsonDAO>();
+            services.AddSingleton<ISessionProvider, InMemorySessionProvider>();
+
+            services.AddTransient<ISecurity, BLL.Security>();
+
 
             services.AddMvc();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("loggedInOnly", policy => 
+                    policy.RequireAssertion(handler => 
+                        !handler.User.HasClaim(match => 
+                            match.Type == ClaimTypes.Anonymous)));
+            });
         }
 
         

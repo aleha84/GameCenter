@@ -36,6 +36,9 @@ namespace GameCenter.Infrastructure
             var code = HttpStatusCode.InternalServerError;
 
             if (exception is WrongIdentityException) code = HttpStatusCode.Forbidden;
+            if (exception is InvalidOperationException &&
+                exception.Message.Contains("No authentication handler is configured to handle the scheme"))
+                code = HttpStatusCode.Forbidden;
 
             return WriteExceptionAsync(context, exception, code);
         }
