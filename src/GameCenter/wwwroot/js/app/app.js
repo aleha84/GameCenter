@@ -2,6 +2,12 @@
 
 app.constant('ROUTES', Routes());
 
+app.run(function($rootScope, ROUTES) {
+    $rootScope.constants = {
+        ROUTES: ROUTES
+    };
+});
+
 app.config(function ($routeProvider, $locationProvider, ROUTES) {
     $locationProvider.hashPrefix('!');
 

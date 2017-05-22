@@ -8,11 +8,11 @@ namespace GameCenter.Security.CustomIdentity
 {
     public class CustomIdentity : ClaimsIdentity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public CustomIdentity(IEnumerable<Claim> claims, Guid Id, string authenticationType) : base(claims, authenticationType)
+        public CustomIdentity(IEnumerable<Claim> claims, int id, string authenticationType) : base(claims, authenticationType)
         {
-            this.Id = Id;
+            this.Id = id;
         }
     }
 }

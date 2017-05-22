@@ -10,5 +10,6 @@ namespace GameCenter.BLL
     public interface ISecurity
     {
         LoginModel Login(string login, string password);
+        UserModel GetUserBySessionId(string sessionId);
     }
 }

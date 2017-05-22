@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using GameCenter.BLL;
 using GameCenter.BLL.Providers;
 using GameCenter.DAL.DAO;
@@ -25,7 +26,7 @@ namespace GameCenter
         {
             services.AddSingleton(typeof(IBaseDAO<>), typeof(BaseJsonDAO<>));
             services.AddSingleton<IUserDAO, UserJsonDAO>();
-            services.AddSingleton<ISessionProvider, InMemorySessionProvider>();
+            services.AddSingleton<ISessionProvider<int>, InMemorySessionProvider<int>>();
 
             services.AddTransient<ISecurity, BLL.Security>();
 
@@ -39,6 +40,8 @@ namespace GameCenter
                         !handler.User.HasClaim(match => 
                             match.Type == ClaimTypes.Anonymous)));
             });
+
+            services.AddAutoMapper();
         }
 
         

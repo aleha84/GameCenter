@@ -6,35 +6,44 @@ using System.Threading.Tasks;
 
 namespace GameCenter.BLL.Providers
 {
-    public class InMemorySessionProvider : ISessionProvider
+    public class InMemorySessionProvider<T> : ISessionProvider<T>
     {
-        private IDictionary<int, Guid> _sessions;
+        private IDictionary<Guid, T> _sessions;
 
         public InMemorySessionProvider()
         {
-            _sessions = new ConcurrentDictionary<int, Guid>();
+            _sessions = new ConcurrentDictionary<Guid, T>();
         }
 
 
-        public bool CheckSession(int userId, Guid sessionId)
+        public bool CheckSession(T userId, Guid sessionId)
         {
-            return _sessions.ContainsKey(userId) && _sessions[userId].Equals(sessionId);
+            return _sessions.ContainsKey(sessionId) && _sessions[sessionId].Equals(userId);
         }
 
-        public void RemoveSession(int userId)
+        public void RemoveSession(T userId)
         {
-            if (_sessions.ContainsKey(userId))
-                _sessions.Remove(userId);
+            var sessionId = _sessions.FirstOrDefault(x => x.Value.Equals(userId)).Key;
+            if (!sessionId.Equals(Guid.Empty))
+                _sessions.Remove(sessionId);
         }
 
-        public Guid AddSession(int userId)
+        public Guid AddSession(T userId)
         {
             RemoveSession(userId);
             var sessionId = Guid.NewGuid();
 
-            _sessions[userId] = sessionId;
+            _sessions[sessionId] = userId;
 
             return sessionId;
+        }
+
+        public T GetSessionValue(Guid sessionId)
+        {
+            if (_sessions.ContainsKey(sessionId))
+                return _sessions[sessionId];
+
+            return default(T);
         }
     }
 }

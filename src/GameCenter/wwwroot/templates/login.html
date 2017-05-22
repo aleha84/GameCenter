@@ -1,5 +1,6 @@
 ﻿<div>
-    <input type="text" id="login" />
-    <input type="password" id="password" />
-    <input type="button" value="Войти"/>
+    <input type="text" ng-model="userName" />
+    <input type="password" ng-model="password" />
+    <input type="button" value="Войти" ng-click="login()"/>
+    <div>{{message}}</div>
 </div>

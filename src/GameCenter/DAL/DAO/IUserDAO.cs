@@ -6,7 +6,7 @@ using GameCenter.DAL.Entities;
 
 namespace GameCenter.DAL.DAO
 {
-    public interface IUserDAO
+    public interface IUserDAO : IBaseDAO<User>
     {
         User GetByName(string name);
     }

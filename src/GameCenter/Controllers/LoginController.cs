@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GameCenter.BLL;
 using GameCenter.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameCenter.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         private ISecurity _security;
@@ -22,10 +24,11 @@ namespace GameCenter.Controllers
 
             _security = security;
         }
+
         [HttpPost]
-        public async Task<LoginModel> Index(string login, string password)
+        public async Task<LoginModel> Index([FromBody]LoginModel model)
         {
-            var result = _security.Login(login, password);
+            var result = _security.Login(model.Login, model.Password);
             if (result.Result)
             {
                 Response.Cookies.Append("_auth", result.Value.ToString());

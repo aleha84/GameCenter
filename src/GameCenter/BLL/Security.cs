@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using GameCenter.BLL.Providers;
 using GameCenter.DAL.DAO;
+using GameCenter.DAL.Entities;
 using GameCenter.Infrastructure.Extensions;
 using GameCenter.Models;
 
@@ -12,11 +14,13 @@ namespace GameCenter.BLL
     public class Security : ISecurity
     {
         private readonly IUserDAO _userDAO;
-        private readonly ISessionProvider _sessionProvider;
+        private readonly ISessionProvider<int> _sessionProvider;
+        private readonly IMapper _mapper;
 
         public Security(
             IUserDAO userDAO,
-            ISessionProvider sessionProvider)
+            ISessionProvider<int> sessionProvider,
+            IMapper mapper)
         {
             if(userDAO == null)
                 throw new ArgumentNullException(nameof(userDAO));
@@ -24,8 +28,12 @@ namespace GameCenter.BLL
             if (sessionProvider == null)
                 throw new ArgumentNullException(nameof(sessionProvider));
 
+            if(mapper == null)
+                throw new ArgumentNullException(nameof(mapper));
+
             _userDAO = userDAO;
             _sessionProvider = sessionProvider;
+            _mapper = mapper;
         }
         public LoginModel Login(string login, string password)
         {
@@ -44,6 +52,27 @@ namespace GameCenter.BLL
                 Result = true,
                 Value = sessionId
             };
+        }
+
+        public UserModel GetUserBySessionId(string sessionId)
+        {
+            var userId = 0;
+            try
+            {
+                userId = _sessionProvider.GetSessionValue(Guid.Parse(sessionId));
+                if (userId == 0)
+                    return null;
+            }
+            catch
+            {
+                return null;
+            }
+            
+            var user = _userDAO.GetById(userId);
+            if (user == null)
+                return null;
+
+            return _mapper.Map<UserModel>(user);
         }
 
         private LoginModel PrepareFailedResult(string login)

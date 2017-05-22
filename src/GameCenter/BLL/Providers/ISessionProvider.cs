@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace GameCenter.BLL.Providers
 {
-    public interface ISessionProvider
+    public interface ISessionProvider<T>
     {
-        bool CheckSession(int userId, Guid sessionId);
-        void RemoveSession(int userId);
-        Guid AddSession(int userId);
+        bool CheckSession(T userId, Guid sessionId);
+        void RemoveSession(T userId);
+        Guid AddSession(T userId);
+        T GetSessionValue(Guid sessionId);
     }
 }
