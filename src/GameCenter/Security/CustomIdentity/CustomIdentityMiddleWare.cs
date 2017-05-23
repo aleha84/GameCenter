@@ -47,6 +47,7 @@ namespace GameCenter.Security.CustomIdentity
                         CreateAnonymous(claims);
                     else
                     {
+                        id = user.Id;
                         claims.Add(new Claim(ClaimTypes.Sid, user.Id.ToString()));
                         claims.Add(new Claim(ClaimTypes.Name, user.Name));
                     }

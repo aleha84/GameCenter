@@ -14,6 +14,8 @@ namespace GameCenter
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseSetting("detailedErrors", "true") 
+                .CaptureStartupErrors(true) 
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseUrls("http://localhost:5000", "http://0.0.0.0:5000")

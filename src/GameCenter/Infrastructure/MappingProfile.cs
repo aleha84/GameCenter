@@ -13,9 +13,11 @@ namespace GameCenter.Infrastructure
         public MappingProfile()
         {
             CreateMap<BaseEntity, BaseModel>()
-                .Include<User, UserModel>();
+                .Include<User, UserModel>()
+                .Include<ApplicationDescription, ApplicationDescriptionModel>();
 
             CreateMap<User, UserModel>();
+            CreateMap<ApplicationDescription, ApplicationDescriptionModel>();
         }
     }
 }

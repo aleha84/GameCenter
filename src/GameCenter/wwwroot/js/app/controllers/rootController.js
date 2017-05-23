@@ -4,7 +4,8 @@
 
     $scope.init = function() {
         $http.get($scope.apiBase).then(
-            function(response) {
+            function (response) {
+                console.log(response.data);
                 $scope.message = response.data.message;
             });
     }

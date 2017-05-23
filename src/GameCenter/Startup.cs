@@ -26,9 +26,11 @@ namespace GameCenter
         {
             services.AddSingleton(typeof(IBaseDAO<>), typeof(BaseJsonDAO<>));
             services.AddSingleton<IUserDAO, UserJsonDAO>();
+            services.AddSingleton<IApplicationsDAO, ApplicationsJsonDAO>();
             services.AddSingleton<ISessionProvider<int>, InMemorySessionProvider<int>>();
 
             services.AddTransient<ISecurity, BLL.Security>();
+            services.AddTransient<IApplicationsBLL, ApplicationsBLL>();
 
 
             services.AddMvc();
