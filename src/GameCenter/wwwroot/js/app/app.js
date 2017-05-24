@@ -21,6 +21,11 @@ app.config(function ($routeProvider, $locationProvider, ROUTES) {
             templateUrl: 'templates/login.html',
             controller: 'loginController'
         })
+        .when(ROUTES.apps,
+        {
+            templateUrl: 'templates/root.html',
+            controller: 'rootController'
+        })
         .otherwise({
             templateUrl: 'templates/notFound.html'
         });
