@@ -9,6 +9,7 @@ using GameCenter.BLL.Providers;
 using GameCenter.DAL.DAO;
 using GameCenter.DAL.DAO.Json;
 using GameCenter.Infrastructure;
+using GameCenter.Infrastructure.SignalR;
 using GameCenter.Security.CustomIdentity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,16 @@ namespace GameCenter
         
         public void ConfigureServices(IServiceCollection services)
         {
+            var sp = services.BuildServiceProvider();
+
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new SignalRContractResolver()
+            };
+
+            var serializer = JsonSerializer.Create(settings);
+            services.Add(new ServiceDescriptor(typeof(JsonSerializer), provider => serializer, ServiceLifetime.Transient));
+
             services.AddSingleton(typeof(IBaseDAO<>), typeof(BaseJsonDAO<>));
             services.AddSingleton<IUserDAO, UserJsonDAO>();
             services.AddSingleton<IApplicationsDAO, ApplicationsJsonDAO>();
@@ -32,6 +43,12 @@ namespace GameCenter
             services.AddTransient<ISecurity, BLL.Security>();
             services.AddTransient<IApplicationsBLL, ApplicationsBLL>();
 
+            services.AddSignalR(options => {
+                options.Hubs.EnableDetailedErrors = true;
+                options.Transports.DisconnectTimeout = System.TimeSpan.FromSeconds(10);
+                options.Transports.KeepAlive = System.TimeSpan.FromSeconds(10 / 4);
+                options.Hubs.PipelineModules.Add(new ExceptionPipelineModule(sp.GetService<ILogger<ExceptionPipelineModule>>()));
+            });
 
             services.AddMvc();
 
@@ -57,6 +74,9 @@ namespace GameCenter
             app.UseMiddleware<CustomIdentityMiddleWare>();
 
             app.UseMvc(Router.GetRouter);
+
+            app.UseWebSockets();
+            app.UseSignalR();
         }
     }
 }

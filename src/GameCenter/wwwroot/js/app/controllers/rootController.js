@@ -1,4 +1,6 @@
 ﻿function rootController($scope, $http, $routeParams, $location) {
+    var utils = window.utils;
+
     $scope.apiBase = "/root";
     $scope.message = '';
 
@@ -11,7 +13,7 @@
                 $scope.user = response.data.user;
                 $scope.applications = data.applications;
 
-                $scope.invokeApp();
+                utils.signalr.init($scope.invokeApp);
             });
     }
 
@@ -20,9 +22,12 @@
     }
 
     $scope.invokeApp = function() {
-        if (!$routeParams || $routeParams.appId === undefined)
+        if (!$routeParams || $routeParams.appId === undefined) {
+            console.log('no appId in route params, return');
             return;
-
+        }
+            
+        console.log('appId: ' + $routeParams.appId + ", invoke app");
         alert("appId: " + $routeParams.appId);
     }
 
