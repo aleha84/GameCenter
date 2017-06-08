@@ -1,4 +1,4 @@
-﻿function responseObserver($location, ROUTES) {
+﻿function responseObserver($location, $q, ROUTES) {
     return {
         'responseError': function (errorResponse) {
             switch (errorResponse.status) {
@@ -9,7 +9,7 @@
                 alert('Backend Exception');
                 break;
             }
-            return errorResponse;
+            return $q.reject(errorResponse);
         }
     };
 }

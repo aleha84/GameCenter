@@ -14,6 +14,9 @@
                 $scope.applications = data.applications;
 
                 utils.signalr.init($scope.invokeApp);
+            },
+            function (rejectResponce) {
+                console.log('reject', rejectResponce);
             });
     }
 
