@@ -8,10 +8,10 @@
 
             console.log('begin loading signalr libs');
             [
-                { url: 'js/lib/jquery.min.js', check: function() { return !window.jQuery } },
+                //{ url: 'js/lib/jquery.min.js', check: function() { return !window.jQuery } },
                 { url: 'js/lib/jquery.signalr.min.js' },
                 { url: 'signalr/hubs' },
-                { url: 'js/app/conversation.js' },
+                { url: 'js/app/conversation.js?_=' + new Date().getTime() },
             ].forEach(function(item) {
                 var isCss = item.isCss || false;
                 if (item.check && !item.check()) {

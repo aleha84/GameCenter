@@ -1,10 +1,14 @@
 ﻿function rootController($scope, $http, $routeParams, $location) {
     var utils = window.utils;
 
-    $scope.apiBase = "/root";
+    $scope.apiBase = "api/root";
+    $scope.appsApiBase = "api/application";
     $scope.message = '';
+    $scope.appsListVisible = false;
+    $scope.appDetailsVisible = false;
+    $scope.selectedApplication = undefined;
 
-    $scope.init = function() {
+    $scope.init = function () {
         $http.get($scope.apiBase).then(
             function (response) {
                 var data = response.data;
@@ -13,7 +17,8 @@
                 $scope.user = response.data.user;
                 $scope.applications = data.applications;
 
-                utils.signalr.init($scope.invokeApp);
+                $scope.appsListVisible = !$routeParams || $routeParams.appId === undefined;
+                utils.signalr.init($scope.invokeApp());
             },
             function (rejectResponce) {
                 console.log('reject', rejectResponce);
@@ -26,12 +31,17 @@
 
     $scope.invokeApp = function() {
         if (!$routeParams || $routeParams.appId === undefined) {
-            console.log('no appId in route params, return');
             return;
         }
-            
+
         console.log('appId: ' + $routeParams.appId + ", invoke app");
-        alert("appId: " + $routeParams.appId);
+
+        $http.get($scope.appsApiBase + '/' + $routeParams.appId).then(function (ad) {
+            $scope.selectedApplication = ad;
+            $scope.appDetailsVisible = true;
+        }, function (rejectResponce) {
+            console.log('reject', rejectResponce);
+        })
     }
 
     $scope.init();

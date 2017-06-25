@@ -8,6 +8,7 @@ using GameCenter.DAL.DAO;
 using GameCenter.DAL.Entities;
 using GameCenter.Infrastructure.Extensions;
 using GameCenter.Models;
+using GameCenter.BLL.Providers.Interfaces;
 
 namespace GameCenter.BLL
 {

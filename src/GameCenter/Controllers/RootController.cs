@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameCenter.Controllers
 {
+    [Route("api/[controller]")]
     [Authorize(Policy = "loggedInOnly")]
     public class RootController : Controller
     {
@@ -25,8 +26,8 @@ namespace GameCenter.Controllers
             _applicationsBLL = applicationsBLL;
         }
 
-        // GET: /<controller>/
-        public async Task<RootModel> Index()
+        [HttpGet]
+        public async Task<RootModel> GetAll()
         {
 
             return new RootModel()

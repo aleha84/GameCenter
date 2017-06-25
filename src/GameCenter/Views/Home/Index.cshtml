@@ -9,16 +9,17 @@
 
     <head>
         <title>Game center</title>
+        <script src="~/js/lib/jquery.min.js"></script>
         <script src="~/js/lib/angular.min.js"></script>
         <script src="~/js/lib/angular-route.min.js"></script>
-        <script src="~/js/Utils/signalrLoader.js"></script>
+        <script src="~/js/Utils/signalrLoader.js?v=0.0.1"></script>
     </head>
     <body ng-app="app">
         <div ng-view class="container">
         </div>
 
-        @* //TODO: return always new scripts *@
-        <script src="~/js/app/controllers/rootController.js"></script>
+        @* //TODO: return always new scripts *@0
+        <script src="~/js/app/controllers/rootController.js?v=@DateTime.Now.Ticks"></script>
         <script src="~/js/app/controllers/loginController.js"></script>
     <script src="~/js/app/Constants/Routes.js"></script>
         <script src="~/js/app/interceptors/responseObserver.js"></script>

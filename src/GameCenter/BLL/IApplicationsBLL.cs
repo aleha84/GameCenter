@@ -9,5 +9,6 @@ namespace GameCenter.BLL
     public interface IApplicationsBLL
     {
         IEnumerable<ApplicationDescriptionModel> GetAll();
+        ApplicationDescriptionModel GetById(int applicationId);
     }
 }

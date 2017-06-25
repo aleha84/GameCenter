@@ -29,5 +29,18 @@ namespace GameCenter.BLL
         {
             return _applicationsDAO.GetAll().Select(ad => _mapper.Map<ApplicationDescriptionModel>(ad)).ToList();
         }
+
+        public ApplicationDescriptionModel GetById(int applicationId)
+        {
+            if (applicationId <= 0)
+                return null;
+
+            var dao = _applicationsDAO.GetById(applicationId);
+
+            if (dao == null)
+                return null;
+
+            return _mapper.Map<ApplicationDescriptionModel>(dao);
+        }
     }
 }

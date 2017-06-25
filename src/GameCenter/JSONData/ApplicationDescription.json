@@ -2,6 +2,10 @@
   {
     "id": "1",
     "name": "testApp",
-    "imgPath":  "/images/testApp/logo.png" 
+    "imgPath": "/images/testApp/logo.png",
+    "shortDescription": "sample app",
+    "description": "sample app for testing",
+    "isMultiplayer": "false",
+    "maxPlayers":  "1"
   }
 ]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GameCenter.BLL.Providers
+namespace GameCenter.BLL.Providers.Interfaces
 {
     public interface ISessionProvider<T>
     {

@@ -17,10 +17,7 @@ namespace GameCenter.Security.CustomIdentity
 
         public CustomIdentityMiddleWare(RequestDelegate next, ISecurity security)
         {
-            if(security == null)
-                throw new ArgumentNullException(nameof(security));
-
-            _security = security;
+            _security = security ?? throw new ArgumentNullException(nameof(security));
             _next = next;
         }
 
