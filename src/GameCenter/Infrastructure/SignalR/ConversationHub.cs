@@ -36,6 +36,12 @@ namespace GameCenter.Infrastructure.SignalR
             await base.OnDisconnected(stopCalled);
         }
 
+        public async Task SrartApplication(int applicationId)
+        {
+            var identity = ValidateContextUser();
+            var connection = Guid.Parse(Context.ConnectionId);
+        }
+
         public async Task Test()
         {
             var foo = "bar";

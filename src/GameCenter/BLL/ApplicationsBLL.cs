@@ -42,5 +42,10 @@ namespace GameCenter.BLL
 
             return _mapper.Map<ApplicationDescriptionModel>(dao);
         }
+
+        public void Start(int id, Guid creatorConnectionId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

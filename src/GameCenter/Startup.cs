@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using GameCenter.BLL.Providers.Interfaces;
+using GameCenter.BLL.Processers;
 
 namespace GameCenter
 {
@@ -41,6 +42,7 @@ namespace GameCenter
             services.AddSingleton<IApplicationsDAO, ApplicationsJsonDAO>();
             services.AddSingleton<ISessionProvider<int>, InMemorySessionProvider<int>>();
             services.AddSingleton<IConnectionsProvider, InMemoryConnectionsProvider>();
+            services.AddSingleton<IApplicationsProcesser, ApplicationsProcesser>();
 
             services.AddTransient<ISecurity, BLL.Security>();
             services.AddTransient<IApplicationsBLL, ApplicationsBLL>();

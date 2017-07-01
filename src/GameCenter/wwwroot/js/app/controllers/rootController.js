@@ -4,8 +4,8 @@
     $scope.apiBase = "api/root";
     $scope.appsApiBase = "api/application";
     $scope.message = '';
-    $scope.appsListVisible = false;
-    $scope.appDetailsVisible = false;
+    //$scope.appsListVisible = false;
+    //$scope.appDetailsVisible = false;
     $scope.selectedApplication = undefined;
 
     $scope.init = function () {
@@ -16,6 +16,8 @@
                 $scope.message = response.data.message;
                 $scope.user = response.data.user;
                 $scope.applications = data.applications;
+
+                $scope.selectedApplication = undefined;
 
                 $scope.appsListVisible = !$routeParams || $routeParams.appId === undefined;
                 utils.signalr.init($scope.invokeApp());
@@ -37,11 +39,20 @@
         console.log('appId: ' + $routeParams.appId + ", invoke app");
 
         $http.get($scope.appsApiBase + '/' + $routeParams.appId).then(function (ad) {
-            $scope.selectedApplication = ad;
-            $scope.appDetailsVisible = true;
+            if (ad.data) {
+                $scope.selectedApplication = ad.data;
+            }
+            
         }, function (rejectResponce) {
             console.log('reject', rejectResponce);
         })
+    }
+
+    $scope.startApp = function () {
+        if (!$scope.selectedApplication)
+            return;
+
+
     }
 
     $scope.init();

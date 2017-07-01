@@ -18,12 +18,7 @@
         <div ng-view class="container">
         </div>
 
-        @* //TODO: return always new scripts *@0
-        <script src="~/js/app/controllers/rootController.js?v=@DateTime.Now.Ticks"></script>
-        <script src="~/js/app/controllers/loginController.js"></script>
-    <script src="~/js/app/Constants/Routes.js"></script>
-        <script src="~/js/app/interceptors/responseObserver.js"></script>
-        <script src="~/js/app/app.js"></script>
-
+        @* //TODO: return always new scripts *@
+        <script type="text/javascript" src="~/js/bundle/app.js"></script>
     </body>
 </html>

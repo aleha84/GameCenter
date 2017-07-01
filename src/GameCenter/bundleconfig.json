@@ -1,0 +1,15 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/js/bundle/app.js",
+    "inputFiles": [
+      "wwwroot/js/app/Constants/*.js",
+      "wwwroot/js/app/controllers/*.js",
+      "wwwroot/js/app/interceptors/*.js",
+      "wwwroot/js/app/app.js"
+    ],
+    "minify": {
+      "enabled": false
+    },
+    "sourceMap": false
+  }
+]

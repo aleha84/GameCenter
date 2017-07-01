@@ -10,5 +10,6 @@ namespace GameCenter.BLL
     {
         IEnumerable<ApplicationDescriptionModel> GetAll();
         ApplicationDescriptionModel GetById(int applicationId);
+        void Start(int id, Guid creatorConnectionId);
     }
 }

@@ -13,17 +13,17 @@ app.config(function ($routeProvider, $locationProvider, ROUTES) {
 
     $routeProvider
         .when(ROUTES.root, {
-            templateUrl: 'templates/root.html',
+            templateUrl: 'templates/root.html?_=' + new Date().getTime().toString(),
             controller: 'rootController'
         })
         .when(ROUTES.login,
         {
-            templateUrl: 'templates/login.html',
+            templateUrl: 'templates/login.html?_=' + new Date().getTime().toString(),
             controller: 'loginController'
         })
         .when(ROUTES.apps,
         {
-            templateUrl: 'templates/root.html',
+            templateUrl: 'templates/root.html?_=' + new Date().getTime().toString(),
             controller: 'rootController'
         })
         .otherwise({
