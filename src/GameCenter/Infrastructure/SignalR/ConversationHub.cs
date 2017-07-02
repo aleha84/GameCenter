@@ -4,12 +4,14 @@ using System;
 using GameCenter.Infrastructure.Exceptions;
 using GameCenter.Security.CustomIdentity;
 using GameCenter.BLL.Providers.Interfaces;
+using GameCenter.BLL.Processers;
 
 namespace GameCenter.Infrastructure.SignalR
 {
     public class ConversationHub : Hub
     {
         private readonly IConnectionsProvider _connectionProvider;
+        
 
         public ConversationHub(IConnectionsProvider connectionProvider)
         {
@@ -40,6 +42,8 @@ namespace GameCenter.Infrastructure.SignalR
         {
             var identity = ValidateContextUser();
             var connection = Guid.Parse(Context.ConnectionId);
+
+            
         }
 
         public async Task Test()

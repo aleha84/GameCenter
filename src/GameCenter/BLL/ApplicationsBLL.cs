@@ -5,22 +5,28 @@ using System.Threading.Tasks;
 using AutoMapper;
 using GameCenter.DAL.DAO;
 using GameCenter.Models;
+using GameCenter.BLL.Processers;
 
 namespace GameCenter.BLL
 {
     public class ApplicationsBLL : IApplicationsBLL
     {
+        private readonly IApplicationsProcesser _applicationProcesser;
         private readonly IApplicationsDAO _applicationsDAO;
         private readonly IMapper _mapper;
 
-        public ApplicationsBLL(IApplicationsDAO applicationsDAO,
-            IMapper mapper)
+        public ApplicationsBLL(
+            IApplicationsDAO applicationsDAO,
+            IMapper mapper,
+            IApplicationsProcesser applicationProcesser)
         {
             if(applicationsDAO == null)
                 throw new ArgumentNullException(nameof(applicationsDAO));
 
             if (mapper == null)
                 throw new ArgumentNullException(nameof(mapper));
+
+            _applicationProcesser = applicationProcesser ?? throw new ArgumentNullException(nameof(applicationProcesser));
 
             _applicationsDAO = applicationsDAO;
             _mapper = mapper;
@@ -45,7 +51,11 @@ namespace GameCenter.BLL
 
         public void Start(int id, Guid creatorConnectionId)
         {
-            throw new NotImplementedException();
+            var appModel = GetById(id);
+            if (appModel == null)
+                throw new ArgumentException("id");
+
+            _applicationProcesser.Add(appModel);
         }
     }
 }

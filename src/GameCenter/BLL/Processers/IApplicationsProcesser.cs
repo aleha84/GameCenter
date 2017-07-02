@@ -8,6 +8,6 @@ namespace GameCenter.BLL.Processers
 {
     public interface IApplicationsProcesser
     {
-        void Add(ApplicationDescriptionModel application);
+        void Add(ApplicationDescriptionModel application, Guid creatorConnectionId);
     }
 }
